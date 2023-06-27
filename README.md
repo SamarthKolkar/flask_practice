@@ -1,2 +1,2 @@
 # flask_practice
-A career website
+Building a career website for practice
