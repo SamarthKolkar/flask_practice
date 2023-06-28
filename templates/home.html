@@ -18,21 +18,31 @@
                 height: 360px;
                 width: 100%;
                 object-fit: cover;
+                margin-bottom: 16px;
             }
         </style>
     </head>
     <body>
+        {% include 'nav.html' %}
+        <img class="img-fluid" id="banner" src="static\johannes-mandle-r_FNlKOxxos-unsplash.jpg" >
         <div class="container">
             <h1 class="text-center mt-2 mb-4">Jovian Careeres</h1>
-            <img class="img-fluid" id="banner" src="static\johannes-mandle-r_FNlKOxxos-unsplash.jpg" >
             
             <h2 class="text-center mt-2 mb-4">
                 About Jovian
             </h2>
 
-            <p class="lead">
-                Learn how to develop Dynamic Database-Driven Web Apps with Python, Flask, and MySQL. This course is broken up into two parts. In part one, you will learn how to build and deploy a site using the Flask Python web framework. In part two, you will connect the Flask application from the first part to a cloud MySQL database and learn how to deploy a production-ready database-driven web application.            
-            </p>
+            <div class="row">
+                <div class="col-6">
+                    <p class="lead">
+                        Learn how to develop Dynamic Database-Driven Web Apps with Python, Flask, and MySQL. This course is broken up into two parts. In part one, you will learn how to build and deploy a site using the Flask Python web framework. In part two, you will connect the Flask application from the first part to a cloud MySQL database and learn how to deploy a production-ready database-driven web application.            
+                    </p>
+                </div>
+
+                <div class="col-6">
+                    <img src="/static/dylan-gillis-KdeqA3aTnBY-unsplash.jpg" alt="" height="320px">
+                </div>
+            </div>
 
             <h2 class="text-center mt-2 mb-4">
                 Open positions
@@ -49,6 +59,9 @@
                     Contact us
                 </button>
             </div>
+        </div>
+        <div>
+            {% include 'footer.html' %}
         </div>
     </body>
 </html>
