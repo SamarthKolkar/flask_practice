@@ -1,7 +1,14 @@
 from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
+import os
+
+def configure():
+    load_dotenv()
 
 
-db_connection_string = "mysql+pymysql://niumqrh75jjh6ctnveb4:pscale_pw_mvXaozo5wtPvR7P9oRB6L5wbXajOanTQ8TLoTZiS6tw@aws.connect.psdb.cloud/kolkars_careers?charset=utf8mb4"
+configure()
+
+db_connection_string = os.getenv('connection_string')
 engine = create_engine(db_connection_string,
                        connect_args = {
                            "ssl" : {
@@ -20,12 +27,20 @@ def load_jobs_from_db():
             jobs.append(row._asdict())
         return jobs
 
+def load_job_from_db(id):
+    with engine.connect() as conn:
+        t = text('SELECT * FROM jobs WHERE id=:val')
+        result = conn.execute(statement = t,  parameters=dict(val=id))
+        rows = result.all()
+        if len(rows) == 0:
+            return None
+        else:
+            return rows[0]._asdict()
 
 
 
+def add_applications(job_id, data):
+    with engine.connect() as conn:
+        query = text("insert into applications (job_id, full_name, email, linked_in, Education, w_exp, resume_url) values (:job_id, :full_name, :email, :linked_in, :Education, :w_exp, :resume_url)")
 
-
-# database: kolkars_careers
-# username: niumqrh75jjh6ctnveb4
-# host: aws.connect.psdb.cloud
-# password: pscale_pw_mvXaozo5wtPvR7P9oRB6L5wbXajOanTQ8TLoTZiS6tw
+        conn.execute(statement = query, parameters=dict(job_id=job_id, full_name=data['full_name'], email=data['email'], linked_in=data['linked_in'], Education=data['Education'], w_exp=data['w_exp'], resume_url=data['resume_url']))
